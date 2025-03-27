@@ -189,3 +189,46 @@ curl -X POST "http://localhost:8000/api/progress" \
 
 ### Receive the log
 curl -X GET "http://localhost:8000/api/progress"
+
+
+
+
+## How To Upload Document
+
+### Set-Up
+
+First, make sure [Docker Desktop](https://docs.docker.com/desktop/) is installed and running. 
+Then navigate to the right directory
+``cd path/to/chat-service``
+and run
+``docker-compose up -d`` (Make sure ENV = 'prod' in .env)
+This starts:
+
+- The FastAPI service (chat-service)
+- Redis
+- MongoDB
+
+Verify they’re running with:
+``docker ps``
+You should see containers like chat-service, mongodb, and redis.
+
+### Uploading through the API
+
+If the previous step is successful, you can now access the API by [Clicking Here](http://127.0.0.1:8000/docs) or typing ``http://127.0.0.1:8000/docs`` into your browser.
+
+Use the [Upload Endpoint](http://localhost:8000/docs#/default/upload_document_upload__post) to upload a .md or .txt file by clicking 'Try it out' then clicking the 'Choose File' button and finding the file you want to upload before clicking the 'Execute' button.
+
+### Uploading through the Terminal
+
+To upload through the terminal, you'll still need to go through the set up. Once this is done, follow these instructions:
+
+*PowerShell:*
+``
+Invoke-WebRequest -Uri "http://localhost:8000/upload/?NPC=0" `
+  -Method Post `
+  -Form @{ file = Get-Item "EXAMPLE.txt" } `
+  -ContentType "multipart/form-data"
+``
+
+
+

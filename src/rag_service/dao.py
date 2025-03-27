@@ -95,6 +95,7 @@ class Database(ABC):
     
 class MongoDB(Database):
     def __init__(self):
+        print(f"[MongoDB] Connecting to: {config.MONGODB_URI}")
         self.client = MongoClient(config.MONGODB_URI)
         self.db = self.client[config.MONGODB_DATABASE]
         self.collection = self.db[config.MONGODB_COLLECTION]
